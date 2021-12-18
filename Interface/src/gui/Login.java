@@ -3,6 +3,7 @@ import control.koneksi;
 import com.mysql.jdbc.Statement;
 import control.control_login;
 import control.koneksi;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -211,6 +212,11 @@ public class Login extends javax.swing.JFrame {
                 btnloginMouseClicked(evt);
             }
         });
+        btnlogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnloginKeyPressed(evt);
+            }
+        });
         jPanel2.add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -259,6 +265,10 @@ public class Login extends javax.swing.JFrame {
         hide2.setVisible(false);
         txpass.setEchoChar('*');
     }//GEN-LAST:event_hide2MousePressed
+
+    private void btnloginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnloginKeyPressed
+
+    }//GEN-LAST:event_btnloginKeyPressed
 
     /**
      * @param args the command line arguments

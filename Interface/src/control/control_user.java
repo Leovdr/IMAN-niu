@@ -20,7 +20,7 @@ public class control_user extends koneksi {
     }
     public DefaultTableModel model = new DefaultTableModel();
     
-    public void simpan(String id_user, String id_muser, String level, String nama, String username, String password) throws SQLException{
+    public void simpan(String id_user, int id_muser, String level, String nama, String username, String password) throws SQLException{
         String sql = "INSERT INTO tbl_user VALUES ('"+id_user+"','"+id_muser+"','"+nama+"','"+username+"','"+password+"')";
         String sqll = "INSERT INTO tbl_muser VALUES ('"+id_muser+"','"+level+"')";
         st.executeUpdate(sql);

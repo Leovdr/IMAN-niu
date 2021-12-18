@@ -26,6 +26,7 @@ control_user ur;
         ut = new menuut();
         ur = new control_user();
         tampil();
+        
     }
     
     public void tampil(){
@@ -63,7 +64,7 @@ control_user ur;
         txtpass = new javax.swing.JTextField();
         btnbaru = new javax.swing.JLabel();
         kode1 = new javax.swing.JLabel();
-        txtlevel = new javax.swing.JTextField();
+        combo = new javax.swing.JComboBox<>();
         kanan = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel = new javax.swing.JTable();
@@ -158,15 +159,8 @@ control_user ur;
         kode1.setText("Level Pengguna");
         kiri.add(kode1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
-        txtlevel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtlevel.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtlevel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 204, 255), new java.awt.Color(0, 0, 102)));
-        txtlevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtlevelActionPerformed(evt);
-            }
-        });
-        kiri.add(txtlevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 390, 30));
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Owner", "Kasir" }));
+        kiri.add(combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 390, 30));
 
         getContentPane().add(kiri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 580));
 
@@ -283,10 +277,6 @@ control_user ur;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtidActionPerformed
-
     private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnamaActionPerformed
@@ -294,10 +284,6 @@ control_user ur;
     private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpassActionPerformed
-
-    private void txtlevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlevelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtlevelActionPerformed
 
     private void btnhapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhapusMouseClicked
         String id = txtid.getText();
@@ -312,13 +298,54 @@ control_user ur;
     }//GEN-LAST:event_btnhapusMouseClicked
 
     private void btnbaruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbaruMouseClicked
-        String id = txtid.getText();
-            String level = txtlevel.getText();
+        txtid.setEditable(true);
+        combo.setSelectedItem(this);
+        txtnama.setEditable(true);
+        txtuser.setEditable(true);
+        txtpass.setEditable(true);
+        btnsimpan.setEnabled(true);
+        btnback.setEnabled(true);
+        btnbaru.setEnabled(false);
+        txtid.requestFocus();
+    }//GEN-LAST:event_btnbaruMouseClicked
+boolean edit = false;
+    private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
+        if(edit==true){
+            String id = txtid.getText();
+            String level = (String)combo.getSelectedItem();
+            String nama = txtnama.getText();
+            String user = txtuser.getText();
+            String pass = txtpass.getText();
+            
+            try{
+                ur.edit(id, id, level, nama, user, pass);
+                JOptionPane.showMessageDialog(rootPane, "Data Berhasil Diupdate");
+                tampil();
+                clear();
+                txtuser.setEditable(false);
+                txtpass.setEditable(false);
+                txtnama.setEditable(false);
+                btnsimpan.setEnabled(false);
+                btnback.setEnabled(true);
+                btnbaru.setEnabled(true);
+            }catch (SQLException ex){
+                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            String id = txtid.getText();
+            int idm = 0;
+            String level = (String)combo.getSelectedItem();
+            if(level == "Owner"){
+                idm = 1;
+                
+            }else if(level == "Kasir"){
+                idm = 2;
+            }
             String nama = txtnama.getText();
             String user = txtuser.getText();
             String pass = txtpass.getText();
             try{
-                ur.simpan(user, user, level, nama, user, pass);
+                ur.simpan(id, idm, level, nama, user, pass);
                 JOptionPane.showMessageDialog(rootPane, "Data berhasil disimpan");
                 tampil();
                 
@@ -335,37 +362,13 @@ control_user ur;
             }catch(SQLException ex){
                 Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }//GEN-LAST:event_btnbaruMouseClicked
-boolean edit = false;
-    private void btnsimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsimpanMouseClicked
-        if(edit==true){
-            String id = txtid.getText();
-            String level = txtlevel.getText();
-            String nama = txtnama.getText();
-            String user = txtuser.getText();
-            String pass = txtpass.getText();
-            
-            try{
-                ur.edit(user, user, level, nama, user, pass);
-                JOptionPane.showMessageDialog(rootPane, "Data Berhasil Diupdate");
-                tampil();
-                clear();
-                txtuser.setEditable(false);
-                txtpass.setEditable(false);
-                txtnama.setEditable(false);
-                btnsimpan.setEnabled(false);
-                btnback.setEnabled(true);
-                btnbaru.setEnabled(true);
-            }catch (SQLException ex){
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }//GEN-LAST:event_btnsimpanMouseClicked
 
     private void tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMouseClicked
         int row = tabel.getSelectedRow();
         txtid.setText(tabel.getValueAt(row, 0).toString());
-        txtlevel.setText(tabel.getValueAt(row, 1).toString());
+        combo.setSelectedItem(tabel.getValueAt(row, 1).toString());
         txtnama.setText(tabel.getValueAt(row, 2).toString());
         txtuser.setText(tabel.getValueAt(row, 3).toString());
         txtpass.setText(tabel.getValueAt(row, 4).toString());
@@ -378,6 +381,10 @@ boolean edit = false;
         this.setVisible(false);
         new MenuUtama().setVisible(true);
     }//GEN-LAST:event_btnbackMouseClicked
+
+    private void txtidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidActionPerformed
+
+    }//GEN-LAST:event_txtidActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,6 +415,18 @@ boolean edit = false;
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -422,6 +441,7 @@ boolean edit = false;
     private javax.swing.JLabel btnbaru;
     private javax.swing.JLabel btnhapus;
     private javax.swing.JLabel btnsimpan;
+    private javax.swing.JComboBox<String> combo;
     private javax.swing.JLabel harga;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel judul;
@@ -433,7 +453,6 @@ boolean edit = false;
     private javax.swing.JLabel stok;
     private javax.swing.JTable tabel;
     private javax.swing.JTextField txtid;
-    private javax.swing.JTextField txtlevel;
     private javax.swing.JTextField txtnama;
     private javax.swing.JTextField txtpass;
     private javax.swing.JTextField txtuser;
