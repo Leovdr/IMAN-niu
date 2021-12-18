@@ -268,11 +268,13 @@ public class MenuUtama extends javax.swing.JFrame {
     private void btnkasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkasirActionPerformed
         Kasir menu = new Kasir("1");
         menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnkasirActionPerformed
 
     private void btnbarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbarangActionPerformed
         Barang menu = new Barang();
         menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnbarangActionPerformed
 
     private void btnuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuserActionPerformed
@@ -284,19 +286,23 @@ public class MenuUtama extends javax.swing.JFrame {
     private void btnreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreportActionPerformed
         Laporan menu = new Laporan();
         menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnreportActionPerformed
 
     private void btnsuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuppliersActionPerformed
        Suppliers menu = new Suppliers();
        menu.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_btnsuppliersActionPerformed
 
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+       Login menu = new Login();
        String ObjButton[]= {"YES","NO"};
        int pilihan = JOptionPane.showOptionDialog(null, "Apakah Anda yakin ingin keluar ?", "Message", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                null, ObjButton, ObjButton[1]);
        if(pilihan == 0){
-           System.exit(0);
+           menu.setVisible(true);
+           this.setVisible(false);
        }    
     }//GEN-LAST:event_btnlogoutActionPerformed
 

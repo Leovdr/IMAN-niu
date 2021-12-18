@@ -35,7 +35,7 @@ public class Kasir extends javax.swing.JFrame {
         date();
         
         this.id_user = id_user;
-        
+        user(id_user);
         System.out.println(id_user);
         
         ct = new control_transaksi();
@@ -75,7 +75,10 @@ public class Kasir extends javax.swing.JFrame {
             Statement st = db.getKoneksi().createStatement();
             ResultSet rs = st.executeQuery(sqli);
             if(rs.next()){
+                System.out.println("Berhasil");
                 lb_user.setText(rs.getString("nama"));
+            } else{
+                System.out.println("Gamasuk");
             }
         }catch (SQLException ex) {
             Logger.getLogger(Kasir.class.getName()).log(Level.SEVERE, null, ex);
